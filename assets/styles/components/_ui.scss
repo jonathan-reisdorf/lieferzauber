@@ -1,0 +1,56 @@
+.ui {
+  &__layer {
+    position:fixed;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    background-color:transparentize($_cWhite, 0.5);
+    z-index:9998;
+
+    &--curtain {
+      z-index:9999;
+      background-color:$_cWhite;
+      cursor:wait;
+    }
+  }
+
+  &__notification {
+    transition:opacity $_tFast;
+    border-radius:$_brLight;
+    padding:($_sNormal / 2) $_sNormal;
+    color:$_cWhite;
+    font-size:$_fsMessage;
+    text-align:left;
+    white-space:normal;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    background-color:$_cDark;
+
+    &s {
+      position:fixed;
+      right:0;
+      top:0;
+      z-index:9997;
+    }
+
+    &--global {
+      float:right;
+      clear:right;
+      margin:$_sNormal;
+    }
+
+    &--hidden {
+      opacity:0;
+    }
+
+    &--error {
+      background-color:$_cError;
+    }
+    &--ok {
+      background-color:$_cSuccess;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+.area {
+  &-center {
+    max-width:$_wMax;
+    margin:0 auto;
+    padding:0 $_sBig;
+    box-sizing:content-box;
+  }
+}

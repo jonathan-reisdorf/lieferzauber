@@ -1,3 +1,9 @@
-html {
-  background:#fafafa;
-}
+@import "common/normalize";
+
+@import "common/variables";
+@import "common/defaults";
+
+@import "components/areas";
+@import "components/messages";
+@import "components/settings";
+@import "components/ui";

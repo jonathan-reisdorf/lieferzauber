@@ -1,0 +1,14 @@
+.message {
+  font-size:$_fsMessageBig;
+  line-height:1.45em;
+  text-align:center;
+  transform:translateY(-50%);
+  top:50%;
+  left:0;
+  right:0;
+  padding:$_sBig;
+  position:absolute;
+  color:$_cGray;
+  box-sizing:border-box;
+  z-index:0;
+}

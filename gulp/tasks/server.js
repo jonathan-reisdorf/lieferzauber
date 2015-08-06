@@ -7,7 +7,7 @@ gulp.task('server', function() {
   var connect = require('gulp-connect');
 
   return connect.server({
-    port : 347,
+    port : 1347,
     root : paths.public.root
   });
 });

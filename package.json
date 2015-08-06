@@ -16,6 +16,7 @@
     "angular-hotkeys": "^1.4.5",
     "angular-resource": "^1.4.3",
     "angular-route": "^1.4.3",
+    "angular-translate": "^2.7.2",
     "browserify": "^11.0.1",
     "del": "^1.2.0",
     "gulp": "^3.9.0",

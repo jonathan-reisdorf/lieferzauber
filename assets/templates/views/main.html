@@ -1,0 +1,13 @@
+<div class="area-center">
+    <div class="message" ng-if="!main.addresses.length">
+        {{ 'INTRO.WELCOME_1' | translate }}<br />
+        {{ 'INTRO.WELCOME_2' | translate }}<br /><br />
+        <button ng-bind="'INTRO.CONTINUE' | translate"></button>
+    </div>
+
+    <div class="ui__notifications">
+        <div class="ui__notification ui__notification--global" ng-repeat="notification in main.ui.notifications.items" ng-class="'ui__notification--' + notification.type + (notification.hidden ? ' ui__notification--hidden' : '')" ng-bind="notification.message"></div>
+    </div>
+    <div class="ui__layer" ng-if="main.ui.locked || main.ui.busy"></div>
+    <div class="ui__layer ui__layer--curtain" ng-if="main.ui.hidden"></div>
+</div>

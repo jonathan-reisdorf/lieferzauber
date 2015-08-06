@@ -1,0 +1,36 @@
+.settings {
+  &__tabs {
+    display:flex;
+    flex-flow:row nowrap;
+    list-style:none outside;
+    padding:0;
+    margin:0;
+    color:$_cGray;
+    text-transform:uppercase;
+
+    li {
+      flex:1;
+      transition:border-bottom-color $_tFast, background-color $_tFast, color $_tFast;
+      padding:($_sNormal - 2px) $_sNormal;
+      text-align:center;
+      background-color:$_cDark;
+      border-bottom:4px solid $_cGray;
+      cursor:pointer;
+      user-select:none;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+
+      &:last-child {
+        border-right-width:0;
+      }
+
+      &.active {
+        background-color:$_cDark;
+        border-bottom-color:$_cSpecial;
+        color:$_cSpecial;
+        cursor:default;
+      }
+    }
+  }
+}
