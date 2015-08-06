@@ -1,0 +1,33 @@
+{
+  "name": "lunshuffle",
+  "version": "0.0.1",
+  "description": "Be surprised by your food selection",
+  "scripts": {
+    "test": "echo \"ERR: No test specified!\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://riesenpixel@bitbucket.org/riesenpixel/lunshuffle.git"
+  },
+  "license": "MIT",
+  "author": "Project A Ventures, Jonathan Reisdorf",
+  "dependencies": {
+    "angular": "^1.4.3",
+    "angular-hotkeys": "^1.4.5",
+    "angular-resource": "^1.4.3",
+    "angular-route": "^1.4.3",
+    "browserify": "^11.0.1",
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-connect": "^2.2.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.5.2",
+    "gutil": "^1.6.4",
+    "jshint-stylish": "^2.0.1",
+    "require-dir": "^0.3.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
