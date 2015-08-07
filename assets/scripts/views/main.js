@@ -28,6 +28,8 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
     load : function(address) {
       CommonUi.busy = true;
       this.items = [];
+      this.active = null;
+      self.categories.active = null;
       self.categories.items = [];
 
       this.storage.get(address.city.toLowerCase(), address.zipcode, function(response) {
