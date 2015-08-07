@@ -27,5 +27,6 @@ module.exports = {
   'CATEGORY.ASIAN' : 'Asiatisch',
   'CATEGORY.INTERNATIONAL' : 'International',
   'CATEGORY.INDIAN' : 'Indisch',
-  'CATEGORY.GOURMET' : 'Gourmet'
+  'CATEGORY.GOURMET' : 'Gourmet',
+  'PEOPLE.INTRO_TEXT' : 'Wie viele hungrige Menschen wollen satt werden?'
 };

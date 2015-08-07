@@ -15,5 +15,26 @@ module.exports = ['CommonRequest', 'StorageService',  function(CommonRequest, St
     }, {});
   };
 
+  self.filterRelevant = function(restaurants) {
+    return restaurants.filter(function(restaurant) {
+      if (!restaurant.general || !restaurant.general.main_category || !restaurant.rating || !restaurant.payment_methods) {
+        return false;
+      }
+
+      return restaurant.general.open && restaurant.general.delivery_home && restaurant.general.reachable && restaurant.general.online &&
+        restaurant.rating.average >= 3.75 && restaurant.payment_methods.filter(function(paymentMethod) {
+          return paymentMethod.name === 'cash';
+        }).length;
+    });
+  };
+
+  self.selectRandomByCategory = function(restaurants, category) {
+    var restaurantsSelection = angular.copy(restaurants.filter(function(restaurant) {
+      return restaurant.general.main_category === category;
+    }));
+
+    return restaurantsSelection[Math.round(Math.random() * (restaurantsSelection.length - 1))];
+  };
+
   return self;
 }];

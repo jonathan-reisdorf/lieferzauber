@@ -24,4 +24,11 @@
       user-select:none;
     }
   }
+
+  &__people {
+    &--caption {
+      font-weight:300;
+      margin-top:$_sBig;
+    }
+  }
 }

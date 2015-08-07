@@ -69,6 +69,18 @@
     &:invalid {
       box-shadow:none;
     }
+
+    &--inline {
+      display:inline-block;
+      width:auto;
+      vertical-align:text-bottom;
+      margin-left:$_sNormal * 2;
+      font-size:$_fsDefault;
+    }
+
+    &--small {
+      width:$_sBig;
+    }
   }
 }
 
