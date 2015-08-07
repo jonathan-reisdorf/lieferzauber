@@ -4,16 +4,11 @@ module.exports = ['CommonUi',  function(CommonUi) {
 
   self.create = function() {
     var instance = {
-      items : null,
       busy : false,
       cbQueue : []
     };
 
     instance.apply = function(resource, cb, reqParams, reqBody) {
-      if (cb && instance.items) {
-        return cb(instance.items);
-      }
-
       if (cb) {
         instance.cbQueue.push(cb);
       }
@@ -26,10 +21,8 @@ module.exports = ['CommonUi',  function(CommonUi) {
 
       function fnSuccess(response) {
         if (response) {
-          instance.items = response;
-
           instance.cbQueue.forEach(function(cb) {
-            cb(instance.items);
+            cb(response);
             instance.busy = false;
           });
         } else {

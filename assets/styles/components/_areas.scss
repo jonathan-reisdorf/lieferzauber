@@ -5,4 +5,23 @@
     padding:0 $_sBig;
     box-sizing:content-box;
   }
+
+  &__tile {
+    border:1px solid $_cGray;
+    border-radius:$_brNormal;
+    padding:$_sNormal;
+
+    &s {
+      margin-top:$_sBig;
+
+      &--caption {
+        font-weight:300;
+      }
+    }
+
+    &--action {
+      cursor:pointer;
+      user-select:none;
+    }
+  }
 }

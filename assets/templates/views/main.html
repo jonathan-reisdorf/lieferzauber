@@ -9,6 +9,8 @@
             {{ 'INTRO.WELCOME_2' | translate }}<br /><br />
             <button class="form__button" ng-bind="'INTRO.CONTINUE' | translate" ng-click="main.addresses.edit()"></button>
         </div>
+
+        <div class="area__tiles" ng-if="main.categories.items.length" ng-include="'/views/partials/categories.html'"></div>
     </div>
 
     <div class="ui__notifications">

@@ -17,5 +17,15 @@ module.exports = {
   'ADDRESS.TELEPHONE' : 'Telefonnummer *',
   'ADDRESS.EMAIL' : 'E-Mail-Adresse *',
   'ADDRESS.CANCEL' : 'Abbrechen',
-  'ADDRESS.SAVE' : 'Speichern'
+  'ADDRESS.SAVE' : 'Speichern',
+  'CATEGORY.INTRO_TEXT' : 'Was möchtest du gern essen?',
+  'CATEGORY.FAST-FOOD' : 'Fast Food',
+  'CATEGORY.PIZZA' : 'Pizza',
+  'CATEGORY.SUSHI' : 'Sushi',
+  'CATEGORY.MEDITERRAN' : 'Mediterran',
+  'CATEGORY.ORIENTAL' : 'Orientalisch',
+  'CATEGORY.ASIAN' : 'Asiatisch',
+  'CATEGORY.INTERNATIONAL' : 'International',
+  'CATEGORY.INDIAN' : 'Indisch',
+  'CATEGORY.GOURMET' : 'Gourmet'
 };
