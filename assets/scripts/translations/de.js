@@ -2,5 +2,20 @@ module.exports = {
   'INTRO.WELCOME_1' : 'Willkommen, dies scheint dein erster Besuch auf dieser Seite zu sein (zumindest auf diesem Gerät / Browser)..',
   'INTRO.WELCOME_2' : 'Bevor du etwas zu essen bekommst, lege bitte zuerst eine Lieferadresse an.',
   'INTRO.CONTINUE' : 'OK, mach ich!',
-  'MESSAGE.GENERIC.ERROR' : 'Es ist ein unbekannter Fehler aufgetreten!'
+  'MESSAGE.GENERIC.ERROR' : 'Es ist ein unbekannter Fehler aufgetreten!',
+  'ADDRESS.ADD' : 'Lieferadresse hinzufügen',
+  'ADDRESS.EDIT' : 'Lieferadresse bearbeiten',
+  'ADDRESS.FIRST_NAME' : 'Vorname *',
+  'ADDRESS.LAST_NAME' : 'Nachname *',
+  'ADDRESS.COMPANY' : 'Firma',
+  'ADDRESS.FLOOR' : 'Etage',
+  'ADDRESS.MISC' : 'Sonstiges / Bemerkungen',
+  'ADDRESS.STREET' : 'Straße *',
+  'ADDRESS.STREET_NR' : 'Hausnr. *',
+  'ADDRESS.POSTAL_CODE' : 'Postleitzahl *',
+  'ADDRESS.CITY' : 'Stadt *',
+  'ADDRESS.TELEPHONE' : 'Telefonnummer *',
+  'ADDRESS.EMAIL' : 'E-Mail-Adresse *',
+  'ADDRESS.CANCEL' : 'Abbrechen',
+  'ADDRESS.SAVE' : 'Speichern'
 };

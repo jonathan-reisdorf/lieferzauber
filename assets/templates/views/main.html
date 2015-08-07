@@ -1,8 +1,14 @@
 <div class="area-center">
-    <div class="message" ng-if="!main.addresses.length">
-        {{ 'INTRO.WELCOME_1' | translate }}<br />
-        {{ 'INTRO.WELCOME_2' | translate }}<br /><br />
-        <button ng-bind="'INTRO.CONTINUE' | translate"></button>
+    <ul class="settings__tabs" ng-if="main.addresses.items.length" ng-include="'/views/partials/address_list.html'"></ul>
+
+    <form name="address_edit" class="form__container" ng-submit="main.addresses.save()" ng-if="main.addresses.editing" ng-include="'/views/partials/address_form.html'"></form>
+
+    <div ng-if="!main.addresses.editing">
+        <div class="message" ng-if="!main.addresses.items.length">
+            {{ 'INTRO.WELCOME_1' | translate }}<br />
+            {{ 'INTRO.WELCOME_2' | translate }}<br /><br />
+            <button class="form__button" ng-bind="'INTRO.CONTINUE' | translate" ng-click="main.addresses.edit()"></button>
+        </div>
     </div>
 
     <div class="ui__notifications">

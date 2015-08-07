@@ -5,6 +5,7 @@ html {
   color:$_cDark;
   overflow:auto;
   line-height:1.45em;
+  overflow-y:scroll;
 }
 
 html,
@@ -18,4 +19,17 @@ body {
 body {
   position:relative;
   overflow:visible;
+}
+
+::-webkit-input-placeholder {
+  color:$_cDark;
+}
+:-moz-placeholder {
+  color:$_cDark;
+}
+::-moz-placeholder {
+  color:$_cDark;
+}
+:-ms-input-placeholder {
+  color:$_cDark;
 }

@@ -6,29 +6,43 @@
     padding:0;
     margin:0;
     color:$_cGray;
-    text-transform:uppercase;
+    font-weight:300;
+    user-select:none;
+
+    &--action {
+      float:right;
+      cursor:pointer;
+      padding:$_sNormal;
+      margin:-($_sNormal);
+      height:22px;
+      line-height:22px;
+
+      &:hover {
+        color:$_cDark;
+      }
+    }
 
     li {
       flex:1;
       transition:border-bottom-color $_tFast, background-color $_tFast, color $_tFast;
-      padding:($_sNormal - 2px) $_sNormal;
+      padding:$_sNormal;
       text-align:center;
-      background-color:$_cDark;
-      border-bottom:4px solid $_cGray;
+      background-color:$_cWhite;
+      border-bottom:1px solid $_cGray;
+      border-right:1px solid $_cGray;
       cursor:pointer;
       user-select:none;
       overflow:hidden;
       white-space:nowrap;
       text-overflow:ellipsis;
 
-      &:last-child {
-        border-right-width:0;
+      &:first-child {
+        border-left:1px solid $_cGray;
       }
 
       &.active {
-        background-color:$_cDark;
-        border-bottom-color:$_cSpecial;
-        color:$_cSpecial;
+        background-color:$_cGray;
+        color:$_cWhite;
         cursor:default;
       }
     }

@@ -1,0 +1,5 @@
+<li ng-repeat="address in main.addresses.items" ng-click="main.addresses.select(address)" ng-class="{ active : (!main.addresses.editing && main.addresses.active === address) || (main.addresses.editing && main.addresses.editing.id === address.id) }">
+    <span class="settings__tabs--action fa fa-pencil" ng-click="main.addresses.edit(address)" stop-propagation="click"></span>
+    <span ng-include="'/views/partials/address_short.html'"></span>
+</li>
+<li ng-bind="'ADDRESS.ADD' | translate" ng-class="{ active : (main.addresses.editing && !main.addresses.editing.id) }" ng-click="main.addresses.edit()"></li>

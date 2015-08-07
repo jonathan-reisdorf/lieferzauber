@@ -1,0 +1,61 @@
+<h2 class="form__container--title" ng-bind="('ADDRESS.' + (main.addresses.editing.id ? 'EDIT' : 'ADD')) | translate"></h2>
+
+<div class="form__row">
+    <div class="grid__row">
+        <div class="grid__column grid__small--6">
+            <input class="form__input" type="text" placeholder="{{ 'ADDRESS.FIRST_NAME' | translate }}" required ng-model="main.addresses.editing.name" autofocus />
+        </div>
+        <div class="grid__column grid__small--6">
+            <input class="form__input" type="text" placeholder="{{ 'ADDRESS.LAST_NAME' | translate }}" required ng-model="main.addresses.editing.lastname" />
+        </div>
+    </div>
+</div>
+<div class="form__row">
+    <input class="form__input" type="text" placeholder="{{ 'ADDRESS.COMPANY' | translate }}" ng-model="main.addresses.editing.company" />
+</div>
+<div class="form__row">
+    <div class="grid__row">
+        <div class="grid__column grid__small--8">
+            <input class="form__input" type="text" placeholder="{{ 'ADDRESS.STREET' | translate }}" required ng-model="main.addresses.editing.street_name" />
+        </div>
+        <div class="grid__column grid__small--4">
+            <input class="form__input" type="text" placeholder="{{ 'ADDRESS.STREET_NR' | translate }}" required ng-model="main.addresses.editing.street_number" />
+        </div>
+    </div>
+</div>
+<div class="form__row">
+    <input class="form__input" type="text" placeholder="{{ 'ADDRESS.FLOOR' | translate }}" ng-model="main.addresses.editing.etage" />
+</div>
+<div class="form__row">
+    <div class="grid__row">
+        <div class="grid__column grid__small--4">
+            <input class="form__input" type="text" placeholder="{{ 'ADDRESS.POSTAL_CODE' | translate }}" pattern="^\d{5}$" maxlength="5" required ng-model="main.addresses.editing.zipcode" />
+        </div>
+        <div class="grid__column grid__small--8">
+            <input class="form__input" type="text" placeholder="{{ 'ADDRESS.CITY' | translate }}" required ng-model="main.addresses.editing.city" />
+        </div>
+    </div>
+</div>
+<div class="form__row">
+    <div class="grid__row">
+        <div class="grid__column grid__small--6">
+            <input class="form__input" type="text" placeholder="{{ 'ADDRESS.TELEPHONE' | translate }}" required ng-model="main.addresses.editing.phone" />
+        </div>
+        <div class="grid__column grid__small--6">
+            <input class="form__input" type="email" placeholder="{{ 'ADDRESS.EMAIL' | translate }}" required ng-model="main.addresses.editing.email" />
+        </div>
+    </div>
+</div>
+<div class="form__row">
+    <textarea class="form__input" placeholder="{{ 'ADDRESS.MISC' | translate }}" ng-model="main.addresses.editing.comments"></textarea>
+</div>
+<div class="form__row">
+    <div class="grid__row">
+        <div class="grid__column grid__small--6" ng-class="{ 'grid__small--hide' : !main.addresses.editing.id }">
+            <button class="form__button form__button--filling form__button--cancel" type="button" ng-bind="'ADDRESS.CANCEL' | translate" ng-click="main.addresses.cancel()"></button>
+        </div>
+        <div class="grid__column" ng-class="main.addresses.editing.id ? 'grid__small--6' : 'grid__small--12'">
+            <button class="form__button form__button--filling form__button--cta" type="submit" ng-bind="'ADDRESS.SAVE' | translate" ng-disabled="!address_edit.$valid"></button>
+        </div>
+    </div>
+</div>
