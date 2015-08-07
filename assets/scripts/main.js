@@ -12,12 +12,17 @@ require('./common/directives')(application);
 require('./common/filters')(application);
 
 application
+  .provider('CommonUi', require('./common/ui'))
   .provider('CommonConfig', require('./common/config'))
 
   .config(require('./common/route'))
 
   .factory('CommonStorage', require('./common/storage'))
-  .provider('CommonUi', require('./common/ui'))
+  .factory('CommonRequest', require('./common/request'))
+
+  .factory('StorageService', require('./storage/service'))
+  .factory('StorageUsers', require('./storage/users'))
+  .factory('StorageRestaurants', require('./storage/restaurants'))
 
   .controller('ViewMainCtrl', require('./views/main'))
 ;
