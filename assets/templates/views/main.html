@@ -12,6 +12,14 @@
 
         <div class="area__tiles" ng-if="main.categories.items.length" ng-include="'/views/partials/categories.html'"></div>
         <div class="area__people" ng-if="main.categories.items.length" ng-include="'/views/partials/people.html'"></div>
+
+        <div class="area__selection">
+            <div ng-if="main.restaurants.active">
+                {{ main.restaurants.active.general.name }}
+            </div>
+
+            <div ng-if="main.categories.items.length && !main.restaurants.active" class="ui__notification ui__notification--error" ng-bind="'ERROR.NO_RESTAURANT_FOUND' | translate"></div>
+        </div>
     </div>
 
     <div class="ui__notifications">

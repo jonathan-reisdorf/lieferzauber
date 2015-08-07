@@ -28,5 +28,6 @@ module.exports = {
   'CATEGORY.INTERNATIONAL' : 'International',
   'CATEGORY.INDIAN' : 'Indisch',
   'CATEGORY.GOURMET' : 'Gourmet',
-  'PEOPLE.INTRO_TEXT' : 'Wie viele hungrige Menschen wollen satt werden?'
+  'PEOPLE.INTRO_TEXT' : 'Wie viele hungrige Menschen wollen satt werden?',
+  'ERROR.NO_RESTAURANT_FOUND' : 'Leider gibt es in dieser Kategorie, für deine Umgebung und für die gewählte Anzahl hungriger Leute keine Restaurants mit vernünftigen Angeboten! :('
 };

@@ -9,6 +9,8 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
       if (isNaN(this.val)) {
         this.val = 1;
       }
+
+      self.restaurants.generateMenu(true);
     }
   };
 
@@ -46,10 +48,14 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
         CommonUi.busy = false;
       });
     },
-    generateMenu : function() {
-      this.selectRandom();
+    generateMenu : function(skipInitialSelection) {
+      if (!skipInitialSelection) {
+        this.selectRandom();
+      }
+
       if (!this.active) { return; }
       console.log(this.active);
+      // todo: generate the actual menu
     },
     selectRandom : function() {
       this.active = StorageRestaurants.selectRandomByCategory(this.items, self.categories.active);
