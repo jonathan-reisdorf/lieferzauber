@@ -36,5 +36,11 @@ module.exports = ['CommonRequest', 'StorageService',  function(CommonRequest, St
     return restaurantsSelection[Math.round(Math.random() * (restaurantsSelection.length - 1))];
   };
 
+  self.getDetails = function(restaurantId, cb) {
+    actions.apply(CommonRequest.restaurants.getDetails, cb, {
+      restaurantId : restaurantId
+    }, {});
+  };
+
   return self;
 }];

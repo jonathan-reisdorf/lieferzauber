@@ -19,6 +19,11 @@ module.exports = ['$resource', '$http', 'CommonConfig', function($resource, $htt
         url : 'users/'
       }
     }),
-    restaurants : generateResource('restaurants/', 'lieferheld', null, {})
+    restaurants : generateResource('restaurants/', 'lieferheld', null, {
+      getDetails : {
+        method : 'GET',
+        url : 'restaurants/:restaurantId/'
+      }
+    })
   };
 }];

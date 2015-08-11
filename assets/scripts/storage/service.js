@@ -1,4 +1,4 @@
-module.exports = ['CommonUi',  function(CommonUi) {
+module.exports = ['CommonUi', function(CommonUi) {
   'use strict';
   var self = this;
 
@@ -21,9 +21,11 @@ module.exports = ['CommonUi',  function(CommonUi) {
 
       function fnSuccess(response) {
         if (response) {
-          instance.cbQueue.forEach(function(cb) {
+          instance.busy = false;
+          var tmpQueue = angular.copy(instance.cbQueue);
+          instance.cbQueue = [];
+          tmpQueue.forEach(function(cb) {
             cb(response);
-            instance.busy = false;
           });
         } else {
           CommonUi.notifications.throwError();

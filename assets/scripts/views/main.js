@@ -10,7 +10,7 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
         this.val = 1;
       }
 
-      self.restaurants.generateMenu(true);
+      self.restaurants.generateMenu(self.restaurants.active);
     }
   };
 
@@ -18,7 +18,7 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
     items : [],
     select : function(category) {
       this.active = category || this.active || this.items[Math.round(Math.random() * (this.items.length - 1))];
-      self.restaurants.generateMenu();
+      self.restaurants.select();
     }
   };
 
@@ -50,17 +50,20 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
         CommonUi.busy = false;
       });
     },
-    generateMenu : function(skipInitialSelection) {
-      if (!skipInitialSelection) {
-        this.selectRandom();
+    select : function(restaurant) {
+      if (!restaurant) {
+        restaurant = this.selectRandom();
       }
+      if (!restaurant) { return (this.active = false); }
 
-      if (!this.active) { return; }
+      StorageRestaurants.getDetails(restaurant.id, this.generateMenu.bind(this));
+    },
+    generateMenu : function(restaurantDetails) {
+      this.active = restaurantDetails;
       console.log(this.active);
-      // todo: generate the actual menu
     },
     selectRandom : function() {
-      this.active = StorageRestaurants.selectRandomByCategory(this.items, self.categories.active);
+      return StorageRestaurants.selectRandomByCategory(this.items, self.categories.active);
     }
   };
 
