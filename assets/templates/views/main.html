@@ -15,9 +15,13 @@
 
         <div class="area__selection">
             <div ng-if="main.restaurants.active">
-                {{ main.restaurants.active.general.name }}
-                {{ main.restaurants.active.rating.average }}
-                <pre>{{ main.restaurants.active.menu }}</pre>
+                {{ main.restaurants.active.id }}
+                {{ main.restaurants.active.name }}
+                {{ main.restaurants.active.ratingAvg }}
+                {{ main.restaurants.active.minOrderValue }}
+                {{ main.restaurants.active.deliveryFees }}
+
+                <pre>{{ main.restaurants.activeMenu }}</pre>
             </div>
 
             <div ng-if="main.categories.items.length && main.restaurants.active === false" class="ui__notification ui__notification--error" ng-bind="'ERROR.NO_RESTAURANT_FOUND' | translate"></div>
