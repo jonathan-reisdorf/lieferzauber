@@ -1,0 +1,54 @@
+<hr />
+
+<h2 class="area__selection--caption">
+    <span ng-bind="'SELECTION.SELECTED_RESTAURANT' | translate"></span><br />
+    <strong ng-bind="main.restaurants.active.name"></strong>
+    <span ng-bind="('SELECTION.MINIMUM_ORDER_VALUE' | translate).replace('%%', main.restaurants.active.minOrderValue.toFixed(2))"></span>
+    <div class="rating" title="{{ ('SELECTION.STARS' | translate).replace('%%', main.restaurants.active.ratingAvg.toFixed(2)) }}">
+        <span class="rating__indicator" ng-style="{ width : (main.restaurants.active.ratingAvg * 20) + '%' }"></span>
+    </div>
+</h2>
+
+<h2 class="area__selection--caption">
+    <span ng-bind="'SELECTION.TOTAL_AMOUNT' | translate"></span>
+    <strong ng-bind="main.restaurants.activeMenu.price.toFixed(2) + ' €'"></strong>
+</h2>
+
+<h2 class="area__selection--caption" ng-bind="'SELECTION.YOUR_ACTION' | translate">
+    Was möchtest du tun?
+</h2>
+
+<div class="grid__row">
+    <div class="grid__column grid__small--6">
+        <button class="form__button form__button--cta form__button--filling">
+            <span class="fa fa-thumbs-up form__button--icon"></span>
+            <span ng-bind="'SELECTION.YOUR_ACTION.BUY' | translate"></span>
+        </button>
+    </div>
+    <div class="grid__column grid__small--6">
+        <button class="form__button form__button--cancel form__button--filling" ng-click="main.restaurants.regenerateMenu()">
+            <span class="fa fa-money form__button--icon"></span>
+            <span ng-bind="'SELECTION.YOUR_ACTION.REGENERATE_MENU' | translate"></span>
+        </button>
+    </div>
+</div>
+<div class="grid__row">
+    <div class="grid__column grid__small--6">
+       <button class="form__button form__button--cancel form__button--filling" ng-click="main.restaurants.select(null, main.restaurants.active.id)">
+           <span class="fa fa-thumbs-down form__button--icon"></span>
+           <span ng-bind="'SELECTION.YOUR_ACTION.CHANGE_RESTAURANT' | translate"></span>
+       </button>
+    </div>
+    <div class="grid__column grid__small--6">
+        <button class="form__button form__button--cancel form__button--filling">
+            <span class="fa fa-glass form__button--icon"></span>
+            <span ng-bind="'SELECTION.YOUR_ACTION.RAISE' | translate"></span>
+        </button>
+    </div>
+</div>
+
+
+{{ main.restaurants.active.id }}
+{{ main.restaurants.active.deliveryFees }}
+
+<pre>{{ main.restaurants.activeMenu }}</pre>

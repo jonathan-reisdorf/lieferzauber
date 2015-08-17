@@ -28,9 +28,9 @@ module.exports = ['CommonRequest', 'StorageService',  function(CommonRequest, St
     });
   };
 
-  self.selectRandomByCategory = function(restaurants, category) {
+  self.selectRandomByCategory = function(restaurants, category, excludeRestaurantId) {
     var restaurantsSelection = angular.copy(restaurants.filter(function(restaurant) {
-      return restaurant.general.main_category === category;
+      return restaurant.general.main_category === category && (!excludeRestaurantId || restaurant.id !== excludeRestaurantId);
     }));
 
     return restaurantsSelection[Math.round(Math.random() * (restaurantsSelection.length - 1))];

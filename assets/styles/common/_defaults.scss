@@ -33,3 +33,12 @@ body {
 :-ms-input-placeholder {
   color:$_cDark;
 }
+
+hr {
+  display:block;
+  height:0;
+  border:0 none;
+  border-top:1px solid $_cGrayLight;
+  padding:0;
+  margin:$_sBig 0;
+}

@@ -1,0 +1,18 @@
+.rating {
+  @extend .fa;
+  margin-left:$_sNormal;
+  color:$_cGray;
+
+  &:after {
+    content:'\f006\f006\f006\f006\f006';
+  }
+
+  &__indicator {
+    position:absolute;
+    overflow:hidden;
+
+    &:after {
+      content:'\f005\f005\f005\f005\f005';
+    }
+  }
+}

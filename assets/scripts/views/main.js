@@ -10,7 +10,7 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
         this.val = 1;
       }
 
-      self.restaurants.generateMenu(self.restaurants.active, self.restaurants.active.minOrderValue, self.restaurants.active.deliveryFees);
+      self.restaurants.regenerateMenu();
     }
   };
 
@@ -50,15 +50,18 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
         CommonUi.busy = false;
       });
     },
-    select : function(restaurant) {
+    select : function(restaurant, excludeRestaurantId) {
       if (!restaurant) {
-        restaurant = this.selectRandom();
+        restaurant = this.selectRandom(excludeRestaurantId);
       }
       if (!restaurant) { return (this.active = false); }
 
       StorageRestaurants.getDetails(restaurant.id, function(restaurantDetails) {
         self.restaurants.generateMenu(restaurantDetails, restaurant.min_order_value, restaurant.delivery_fees[0]);
       });
+    },
+    regenerateMenu : function() {
+      this.generateMenu(this.active, this.active.minOrderValue, this.active.deliveryFees);
     },
     generateMenu : function(restaurantDetails, minOrderValue, deliveryFees) {
       var config = {
@@ -147,8 +150,8 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
         menu : menu
       };
     },
-    selectRandom : function() {
-      return StorageRestaurants.selectRandomByCategory(this.items, self.categories.active);
+    selectRandom : function(excludeRestaurantId) {
+      return StorageRestaurants.selectRandomByCategory(this.items, self.categories.active, excludeRestaurantId);
     }
   };
 

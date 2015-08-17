@@ -29,5 +29,14 @@ module.exports = {
   'CATEGORY.INDIAN' : 'Indisch',
   'CATEGORY.GOURMET' : 'Gourmet',
   'PEOPLE.INTRO_TEXT' : 'Wie viele hungrige Menschen wollen satt werden?',
-  'ERROR.NO_RESTAURANT_FOUND' : 'Leider gibt es in dieser Kategorie, für deine Umgebung und für die gewählte Anzahl hungriger Leute keine Restaurants mit vernünftigen Angeboten! :('
+  'ERROR.NO_RESTAURANT_FOUND' : 'Leider gibt es in dieser Kategorie, für deine Umgebung und für die gewählte Anzahl hungriger Leute keine Restaurants mit vernünftigen Angeboten! :(',
+  'SELECTION.SELECTED_RESTAURANT' : 'Der Zufall möchte, dass du heute hier bestellst:',
+  'SELECTION.MINIMUM_ORDER_VALUE' : '(MBW: %% €)',
+  'SELECTION.STARS' : 'Bewertung: %% Sterne',
+  'SELECTION.TOTAL_AMOUNT' : 'Gesamtbetrag der Bestellung inkl. Lieferung:',
+  'SELECTION.YOUR_ACTION' : 'Wie findest du das?',
+  'SELECTION.YOUR_ACTION.BUY' : 'Super, genau so bestellen',
+  'SELECTION.YOUR_ACTION.REGENERATE_MENU' : 'Den Preis bitte nochmal ändern',
+  'SELECTION.YOUR_ACTION.CHANGE_RESTAURANT' : 'Was ganz anderes probieren!',
+  'SELECTION.YOUR_ACTION.RAISE' : 'Das ist mir zu billig. Teurer machen!'
 };

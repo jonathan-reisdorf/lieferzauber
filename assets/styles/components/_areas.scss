@@ -16,6 +16,7 @@
 
       &--caption {
         font-weight:300;
+        line-height:1.45em;
       }
     }
 
@@ -29,6 +30,15 @@
     &--caption {
       font-weight:300;
       margin-top:$_sBig;
+      line-height:1.45em;
+    }
+  }
+
+  &__selection {
+    &--caption {
+      font-weight:300;
+      margin-top:($_sBig / 2);
+      line-height:1.65em;
     }
   }
 }
