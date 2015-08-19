@@ -49,6 +49,9 @@
     &--error {
       background-color:$_cError;
     }
+    &--warning {
+      background-color:$_cWarning;
+    }
     &--ok {
       background-color:$_cSuccess;
     }

@@ -14,6 +14,16 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
     }
   };
 
+  self.order = {
+    active : false,
+    start : function() {
+
+    },
+    prepare : function() {
+
+    }
+  };
+
   self.categories = {
     items : [],
     select : function(category) {
@@ -31,6 +41,7 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
       this.active = null;
       self.categories.active = null;
       self.categories.items = [];
+      self.order.active = false;
 
       this.storage.get(address.city.toLowerCase(), address.zipcode, function(response) {
         if (response.data) {
@@ -51,6 +62,8 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
       });
     },
     select : function(restaurant, excludeRestaurantId) {
+      self.order.active = false;
+
       if (!restaurant) {
         restaurant = this.selectRandom(excludeRestaurantId);
       }
@@ -198,7 +211,7 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
       }
 
       CommonStorage.set('addresses', this.items);
-      this.editing = false;
+      this.select(newAddress);
     }
   };
 
