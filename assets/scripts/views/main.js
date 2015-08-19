@@ -60,86 +60,38 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
         self.restaurants.generateMenu(restaurantDetails, restaurant.min_order_value, restaurant.delivery_fees[0]);
       });
     },
+    mealConfig : {
+      minPerPerson : 5.5,
+      maxPerPersonFactor : 2,
+      popularityChance : 2 / 3,
+      fancyFlavorChance : 1 / 4,
+      subItemsPerPerson : 0.5,
+      preferedMealSizeFactor : 0.5
+    },
     regenerateMenu : function() {
       this.generateMenu(this.active, this.active.minOrderValue, this.active.deliveryFees);
     },
     generateMenu : function(restaurantDetails, minOrderValue, deliveryFees) {
-      var config = {
-        minPerPerson : 5.5,
-        maxPerPersonFactor : 2,
-        popularityChance : 2 / 3,
-        fancyFlavorChance : 1 / 4,
-        subItemsPerPerson : 0.5,
-        preferedMealSizeFactor : 0.5
-      };
-
       var menu = restaurantDetails.menu;
 
       var mealItems = [],
-        totalSum = 0,
         mainDish,
-        sideDish,
-        tries,
-        isOdd,
-        i;
+        sideDish;
 
-      for (i = 0; i < parseInt(self.hungryPeople.val); i++) {
+      for (var i = 0; i < parseInt(self.hungryPeople.val); i++) {
         mainDish = null;
         sideDish = null;
-        isOdd = i % 2;
 
-        for (tries = 0; tries < 5; tries++) {
-          if (mainDish) {
-            continue;
-          }
-
-          mainDish = StorageRestaurants.mealItems.generate(menu, true, config, 0);
-          if (tries < 4 && mainDish && mainDish.priceToBuy > (config.minPerPerson * config.maxPerPersonFactor)) {
-            mainDish = null;
-          }
-        }
-
-        if (mainDish) {
-          totalSum += mainDish.priceToBuy;
+        if ((mainDish = this.generateMainDish(menu))) {
           mealItems.push(mainDish);
         }
 
-        if ((mainDish ? mainDish.priceToBuy : 0) < config.minPerPerson || !isOdd) {
-          for (tries = 0; tries < 3; tries++) {
-            if (sideDish) {
-              continue;
-            }
-
-            sideDish = StorageRestaurants.mealItems.generate(menu, false, config, 0);
-            if (sideDish && sideDish.priceToBuy > config.minPerPerson) {
-              sideDish = null;
-            }
-          }
-
-          if (sideDish) {
-            totalSum += sideDish.priceToBuy;
+        if ((mainDish ? mainDish.priceToBuy : 0) < this.mealConfig.minPerPerson || i % 2 === 0) {
+          if ((sideDish = this.generateSideDish(menu))) {
             mealItems.push(sideDish);
           }
         }
       }
-
-      while (totalSum < minOrderValue) {
-        sideDish = StorageRestaurants.mealItems.generate(menu, false, config, 0);
-
-        if (sideDish) {
-          totalSum += sideDish.priceToBuy;
-          mealItems.push(sideDish);
-        }
-      }
-
-      if (deliveryFees.amount) {
-        totalSum += (deliveryFees.threshold && totalSum > deliveryFees.threshold) ? 0 : deliveryFees.amount;
-      }
-
-      this.activeMenu = {
-        price : totalSum,
-        items : mealItems
-      };
 
       this.active = {
         id : restaurantDetails.id,
@@ -149,6 +101,72 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
         deliveryFees : deliveryFees,
         menu : menu
       };
+
+      this.activeMenu = this.finalizeMeal(mealItems);
+    },
+    finalizeMeal : function(mealItems) {
+      var totalSum = 0,
+        sideDish;
+
+      mealItems.forEach(function(mealItem) {
+        totalSum += mealItem.priceToBuy;
+      });
+
+      while (totalSum < this.active.minOrderValue) {
+        if ((sideDish = this.generateSideDish(this.active.menu, false)) || (sideDish = this.generateSideDish(this.active.menu, true))) {
+          totalSum += sideDish.priceToBuy;
+          mealItems.push(sideDish);
+        }
+      }
+
+      if (this.active.deliveryFees.amount) {
+        totalSum += (this.active.deliveryFees.threshold && totalSum > this.active.deliveryFees.threshold) ? 0 : this.active.deliveryFees.amount;
+      }
+
+      return {
+        price : totalSum,
+        items : mealItems
+      };
+    },
+    generateMainDish : function(menu) {
+      var mainDish, tries;
+
+      for (tries = 0; tries < 5; tries++) {
+        if (mainDish) {
+          continue;
+        }
+
+        mainDish = StorageRestaurants.mealItems.generate(menu, true, this.mealConfig, 0);
+        if (tries < 4 && mainDish && mainDish.priceToBuy > (this.mealConfig.minPerPerson * this.mealConfig.maxPerPersonFactor)) {
+          mainDish = null;
+        }
+      }
+
+      return mainDish;
+    },
+    generateSideDish : function(menu, removeConstraints) {
+      var sideDish, tries;
+
+      for (tries = 0; tries < 3; tries++) {
+        if (sideDish) {
+          continue;
+        }
+
+        sideDish = StorageRestaurants.mealItems.generate(menu, false, this.mealConfig, 0);
+        if (!removeConstraints && sideDish && sideDish.priceToBuy > this.mealConfig.minPerPerson) {
+          sideDish = null;
+        }
+      }
+
+      return sideDish;
+    },
+    addSideDish : function() {
+      var sideDish;
+      if ((sideDish = this.generateSideDish(this.active.menu, false)) || (sideDish = this.generateSideDish(this.active.menu, true))) {
+        this.activeMenu = this.finalizeMeal(this.activeMenu.items.concat(sideDish));
+      } else {
+        CommonUi.notifications.throwError();
+      }
     },
     selectRandom : function(excludeRestaurantId) {
       return StorageRestaurants.selectRandomByCategory(this.items, self.categories.active, excludeRestaurantId);
