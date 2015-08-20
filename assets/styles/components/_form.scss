@@ -26,6 +26,7 @@
     border:0 none;
     background:$_cDark;
     border-radius:$_brNormal;
+    font-weight:300;
 
     &--inline {
       margin-left:$_sNormal;
@@ -39,11 +40,8 @@
     &--cancel {
       background:darken($_cGray, 20%);
     }
-    &--risk {
-      background:darken($_cWarning, 20%);
-    }
     &--cta {
-      background:darken($_cSuccess, 20%);
+      background:darken($_cSpecial, 20%);
     }
 
     &[disabled] {

@@ -23,6 +23,7 @@ application
   .factory('StorageService', require('./storage/service'))
   .factory('StorageUsers', require('./storage/users'))
   .factory('StorageRestaurants', require('./storage/restaurants'))
+  .factory('StorageOrders', require('./storage/orders'))
 
   .controller('ViewMainCtrl', require('./views/main'))
 ;

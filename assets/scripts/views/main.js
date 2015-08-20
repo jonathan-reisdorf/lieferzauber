@@ -1,4 +1,4 @@
-module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestaurants', function($routeParams, CommonUi, CommonStorage, StorageRestaurants) {
+module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 'StorageRestaurants', 'StorageUsers', 'StorageOrders', function($routeParams, CommonUi, CommonRequest, CommonStorage, StorageRestaurants, StorageUsers, StorageOrders) {
   'use strict';
   var self = this;
 
@@ -17,10 +17,48 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
   self.order = {
     active : false,
     start : function() {
+      this.userData = CommonStorage.get('userData');
 
+      if (!this.userData) {
+        return StorageUsers.create(function(userData) {
+          CommonStorage.set('userData', userData);
+          self.order.start();
+        });
+      }
+
+      CommonRequest.setToken(this.userData.token);
+      StorageOrders.create(this.userData.user.id, self.restaurants.active.id, this.addDetails.bind(this));
     },
-    prepare : function() {
+    addDetails : function(order) {
+      if (!order.payment || !order.payment.method || order.payment.method.name !== 'cash') {
+        return CommonUi.notifications.throwError('ERR #100');
+      }
 
+      order.user_id = this.userData.user.id;
+      order.restaurant_id = self.restaurants.active.id;
+
+      angular.extend(order.delivery_address.address, self.addresses.active);
+      delete order.delivery_address.address.id;
+
+      order.sections = [{
+        items : self.restaurants.getCleanedMealData()
+      }];
+
+      order.operation = 'validate';
+      StorageOrders.update(order, this.finish.bind(this));
+    },
+    finish : function(order) {
+      console.log('finishing order', order);
+
+      var processingErrors = Object.keys(order.validity).filter(function(validityProp) {
+        return !order.validity[validityProp];
+      });
+
+      if (processingErrors.length) {
+        return processingErrors.forEach(function(processingError) {
+          CommonUi.notifications.throwError('MESSAGE.INVALID_' + processingError.toUpperCase());
+        });
+      }
     }
   };
 
@@ -183,6 +221,20 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonStorage', 'StorageRestauran
     },
     selectRandom : function(excludeRestaurantId) {
       return StorageRestaurants.selectRandomByCategory(this.items, self.categories.active, excludeRestaurantId);
+    },
+    getCleanedMealData : function() {
+      var data = angular.copy(this.activeMenu.items),
+        validProperties = ['id', 'name', 'flavors', 'size', 'quantity'];
+
+      data.forEach(function(mealItem) {
+        Object.keys(mealItem).forEach(function(mealItemProp) {
+          if (validProperties.indexOf(mealItemProp) === -1) {
+            delete mealItem[mealItemProp];
+          }
+        });
+      });
+
+      return data;
     }
   };
 

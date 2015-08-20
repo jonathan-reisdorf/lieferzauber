@@ -8,7 +8,7 @@ module.exports = ['$translateProvider', '$resourceProvider', '$locationProvider'
   };
 
   $httpProvider.defaults.withCredentials = true;
-  $httpProvider.interceptors.push(['$q', '$translate', function($q, $translate) {
+  $httpProvider.interceptors.push(['$q', function($q) {
     return {
       request : function(config) {
         CommonUi.busy = true;
@@ -24,9 +24,13 @@ module.exports = ['$translateProvider', '$resourceProvider', '$locationProvider'
       responseError: function(rejection) {
         CommonUi.busy = false;
 
-        $translate('MESSAGE.GENERIC.' + rejection.status).then(function(translation) {
-          CommonUi.notifications.autoRemove(CommonUi.notifications.add('ERROR', translation));
-        });
+        if (rejection.data && rejection.data.errors) {
+          rejection.data.errors.forEach(function(error) {
+            CommonUi.notifications.throwError(error ? (error.error_code + ': ' + error.error_message) : 'ERR #000');
+          });
+        } else {
+          CommonUi.notifications.throwError('MESSAGE.GENERIC.' + rejection.status);
+        }
 
         return $q.reject(rejection);
       }
