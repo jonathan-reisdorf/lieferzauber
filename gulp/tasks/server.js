@@ -6,22 +6,22 @@ var gulp = require('gulp'),
 gulp.task('server', function() {
   var connect = require('gulp-connect');
 
-  var proxyMiddleware = require('http-proxy-middleware'),
-    context = '/api',
-    options = {
-      target : 'https://www.lieferheld.de',
-      changeOrigin : true
-    };
+  var proxyMiddleware = require('http-proxy-middleware');
 
-  var proxy = proxyMiddleware(context, options);
+  var proxyLieferheld = proxyMiddleware('/api', {
+    target : 'https://www.lieferheld.de',
+    changeOrigin : true
+  });
+  var proxyGmaps = proxyMiddleware('/maps/api/geocode/json', {
+    target : 'https://maps.googleapis.com',
+    changeOrigin : true
+  });
 
-  var server = connect.server({
+  return connect.server({
     port : 1347,
     root : paths.public.root,
     middleware : function() {
-      return [proxy];
+      return [proxyLieferheld, proxyGmaps];
     }
   });
-
-  return server;
 });

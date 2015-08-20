@@ -10,6 +10,10 @@ module.exports = ['$resource', '$http', 'CommonConfig', function($resource, $htt
       });
     }
 
+    options = options || {
+      stripTrailingSlashes : CommonConfig.stripTrailing[endpoint]
+    };
+
     return $resource((endpoint ? CommonConfig.endpoints[endpoint] : '/') + route + '/', paramDefaults, actions, options);
   };
   $http.defaults.headers.common.Authentication = defaultAuth;
@@ -36,6 +40,7 @@ module.exports = ['$resource', '$http', 'CommonConfig', function($resource, $htt
         url : 'restaurants/:restaurantId'
       }
     }),
+    geocode : generateResource('json', 'gmaps', { sensor : false }),
     setToken : function(token) {
       $http.defaults.headers.common.Authentication = defaultAuth + ',token=' + token;
     }

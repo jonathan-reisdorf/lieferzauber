@@ -257,13 +257,40 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
     save : function() {
       var newAddress = this.editing;
 
-      if (!newAddress.id) {
-        angular.extend(newAddress, { id : new Date().getTime() });
-        this.items.push(newAddress);
-      }
+      CommonRequest.geocode.get({
+        address : [newAddress.street_name, newAddress.street_number, newAddress.zipcode, newAddress.city, 'DE'].join(', ')
+      }, function(geoData) {
+        if (!geoData.results || !geoData.results.length) {
+          return CommonUi.notifications.throwError('MESSAGE.ERROR_LOCATION.NONE');
+        }
 
-      CommonStorage.set('addresses', this.items);
-      this.select(newAddress);
+        if (geoData.results.length > 1) {
+          return CommonUi.notifications.throwError('MESSAGE.ERROR_LOCATION.TOO_MANY');
+        }
+
+        geoData = geoData.results[0].geometry;
+
+        if (geoData.location_type !== 'ROOFTOP') {
+          CommonUi.notifications.throwMessage('warning', null, 'MESSAGE.ERROR_LOCATION.WRONG_TYPE');
+        }
+
+        angular.extend(newAddress, {
+          user_location : {
+            latitude : geoData.location.lat,
+            longitude : geoData.location.lng
+          }
+        });
+
+        // @todo: take more data from google
+
+        if (!newAddress.id) {
+          angular.extend(newAddress, { id : new Date().getTime() });
+          self.addresses.items.push(newAddress);
+        }
+
+        CommonStorage.set('addresses', self.addresses.items);
+        self.addresses.select(newAddress);
+      });
     }
   };
 

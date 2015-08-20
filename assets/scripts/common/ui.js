@@ -59,11 +59,11 @@ module.exports = function CommonUiProvider() {
 
       services.$timeout(function() {
         self.notifications.hide(key);
-      }, timeout || 5000);
+      }, timeout || 8000);
 
       services.$timeout(function() {
         self.notifications.remove(key);
-      }, (timeout || 5000) + 300);
+      }, (timeout || 8000) + 300);
     },
     throwError : function() {
       self.notifications.throwMessage.apply(this, ['error', null].concat(Array.prototype.slice.call(arguments)));

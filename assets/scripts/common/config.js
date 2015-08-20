@@ -40,10 +40,14 @@ module.exports = ['$translateProvider', '$resourceProvider', '$locationProvider'
   $locationProvider.html5Mode(true);
 
   self.endpoints = {
-    lieferheld : '/api/'
+    lieferheld : '/api/',
+    gmaps : '/maps/api/geocode/'
   };
 
-  $resourceProvider.defaults.stripTrailingSlashes = false;
+  self.stripTrailing = {
+    lieferheld : false,
+    gmaps : true
+  };
 
   $translateProvider.translations('de', require('../translations/de'));
   $translateProvider.preferredLanguage('de');
