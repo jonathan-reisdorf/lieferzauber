@@ -180,7 +180,7 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
       this.active = {
         id : restaurantDetails.id,
         name : restaurantDetails.name || restaurantDetails.general.name,
-        paymentMethod : restaurantDetails.payment_methods.filter(function(paymentMethod) {
+        paymentMethod : restaurantDetails.paymentMethod || restaurantDetails.payment_methods.filter(function(paymentMethod) {
           return paymentMethod.name === 'cash';
         })[0],
         ratingAvg : restaurantDetails.ratingAvg || restaurantDetails.rating.average,
