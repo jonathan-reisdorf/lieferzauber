@@ -50,5 +50,6 @@ module.exports = ['$translateProvider', '$resourceProvider', '$locationProvider'
   };
 
   $translateProvider.translations('de', require('../translations/de'));
-  $translateProvider.preferredLanguage('de');
+  $translateProvider.translations('en', require('../translations/en'));
+  $translateProvider.preferredLanguage((navigator.language || navigator.userLanguage).indexOf('de') !== -1 ? 'de' : 'en');
 }];

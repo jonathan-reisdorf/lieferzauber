@@ -1,4 +1,4 @@
-module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 'StorageRestaurants', 'StorageUsers', 'StorageOrders', function($routeParams, CommonUi, CommonRequest, CommonStorage, StorageRestaurants, StorageUsers, StorageOrders) {
+module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'CommonStorage', 'StorageRestaurants', 'StorageUsers', 'StorageOrders', function($routeParams, $translate, CommonUi, CommonRequest, CommonStorage, StorageRestaurants, StorageUsers, StorageOrders) {
   'use strict';
   var self = this;
 
@@ -327,6 +327,15 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
   };
 
   self.addresses.select(self.addresses.items[0]);
+
+  self.locale = {
+    getCurrent : function() {
+      return $translate.use();
+    },
+    change : function() {
+      return $translate.use(this.getCurrent() === 'de' ? 'en' : 'de');
+    }
+  };
 
   self.ui = CommonUi;
 }];

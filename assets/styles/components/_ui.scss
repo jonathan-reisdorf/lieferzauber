@@ -56,4 +56,16 @@
       background-color:$_cSuccess;
     }
   }
+
+  &__language {
+    position:fixed;
+    right:0;
+    bottom:0;
+    padding:$_sNormal;
+    cursor:pointer;
+    user-select:none;
+    text-decoration:underline;
+    background:transparentize($_cWhite, 0.2);
+    font-size:$_fsDefault - 1px;
+  }
 }

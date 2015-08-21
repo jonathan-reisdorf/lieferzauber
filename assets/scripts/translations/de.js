@@ -5,7 +5,7 @@ module.exports = {
   'OUTRO.ORDER_FINISHED' : 'Super, das hat geklappt! Nun heißt es warten...',
   'MESSAGE.GENERIC.ERROR' : 'Es ist leider ein Fehler aufgetreten!',
   'MESSAGE.GENERIC.401' : 'Fehler: Zugriff verweigert',
-  'MESSAGE.GENERIC.404' : 'Fehler: Adresse nicht gefunden',
+  'MESSAGE.GENERIC.404' : 'Fehler 404: Adresse nicht gefunden',
   'MESSAGE.GENERIC.500' : 'Fehler beim Dienstleister, bitte später erneut versuchen',
   'MESSAGE.GENERIC.503' : 'Der Dienstleister deployt gerade, bitte später erneut versuchen',
   'MESSAGE.INVALID_DELIVERY_ADDRESS' : 'Die von dir eingegebene Lieferadresse wurde als ungültig ermittelt. Bitte überprüfe diese nochmal und versuche es dann erneut.',
@@ -54,5 +54,6 @@ module.exports = {
   'SELECTION.YOUR_ACTION.RAISE' : 'Das ist mir zu billig. Teurer machen!',
   'ORDER.CONFIRM' : 'Disclaimer: Bist du dir wirklich sicher, dass du ohne Kenntnis über den Inhalt deiner Bestellung den Betrag in Höhe von %% € ausgeben möchtest? Theoretisch ist alles möglich. Du könntest zum Beispiel anstelle eines Mittagessens einfach drei Getränke bekommen. Oder einen Burger mit Nutella. Es ist nicht wahrscheinlich, aber auch nicht ausgeschlossen! Auch solltest du sichergehen, dass du oder deine Freunde keine Allergien gegen bestimmte Inhaltsstoffe haben. In jedem Fall geschieht die Bestellung auf eigenes Risiko. Du erhälst allerdings eine E-Mail, die vermutlich eine Liste der bestellten Artikel enthält. Wenn du es nicht aushälst, kannst du dir diese natürlich ansehen und dem Lieferservice evtl. noch kurzfristig Änderungswünsche mitteilen.',
   'ORDER.CANCEL' : 'Nein, ich bin mir nicht sicher...',
-  'ORDER.BUY' : 'Ja, ich bin mir sicher! (Jetzt kostenpflichtig bestellen)'
+  'ORDER.BUY' : 'Ja, ich bin mir sicher! (Jetzt kostenpflichtig bestellen)',
+  'GLOBAL.SWITCH_LANGUAGE' : 'Switch to English'
 };

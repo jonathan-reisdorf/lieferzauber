@@ -10,7 +10,7 @@
     "url": "https://riesenpixel@bitbucket.org/riesenpixel/lunshuffle.git"
   },
   "license": "MIT",
-  "author": "Project A Ventures, Jonathan Reisdorf",
+  "author": "Jonathan Reisdorf, Project A Ventures",
   "dependencies": {
     "angular": "^1.4.3",
     "angular-hotkeys": "^1.4.5",
