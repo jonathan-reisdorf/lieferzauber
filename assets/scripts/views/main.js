@@ -36,20 +36,26 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
       }
 
       order.user_id = this.userData.user.id;
-      order.restaurant_id = self.restaurants.active.id;
+      // order.restaurant_id = self.restaurants.active.id;
       order.sms_confirmation = true;
 
       angular.extend(order.delivery_address.address, self.addresses.active);
       delete order.delivery_address.address.id;
+      delete order.delivery_address.id;
+      delete order.delivery_address.uri;
 
-      order.user_location = {
+      /* order.user_location = {
         latitude : order.delivery_address.address.latitude,
         longitude : order.delivery_address.address.longitude
-      };
+      }; */
 
       order.sections = [{
         items : self.restaurants.getCleanedMealData()
       }];
+
+      order.payment = {
+        method : angular.extend({}, self.restaurants.active.paymentMethod, { fast_lane : false })
+      };
 
       order.operation = 'validate';
       StorageOrders.update(order, this.finish.bind(this));
@@ -68,6 +74,8 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
       // @todo: should I update order_price_details?
 
       order.operation = 'final';
+      order.user_id = this.userData.user.id;
+
       StorageOrders.update(order, this.exit.bind(this));
     },
     exit : function(order) {
@@ -80,7 +88,7 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
         email : order.delivery_address.address.email
       };
 
-      StorageUsers.update(userId, addedUserData);
+      StorageUsers.update(this.userData.user.id, addedUserData);
 
       angular.extend(this.userData.user.general, addedUserData);
       CommonStorage.set('userData', this.userData);
@@ -172,6 +180,9 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
       this.active = {
         id : restaurantDetails.id,
         name : restaurantDetails.name || restaurantDetails.general.name,
+        paymentMethod : restaurantDetails.payment_methods.filter(function(paymentMethod) {
+          return paymentMethod.name === 'cash';
+        })[0],
         ratingAvg : restaurantDetails.ratingAvg || restaurantDetails.rating.average,
         minOrderValue : minOrderValue,
         deliveryFees : deliveryFees,
