@@ -20,6 +20,7 @@ gulp.task('scripts', ['scripts:jshint', 'scripts:clean'], function() {
   var browserify   = require('browserify'),
     source         = require('vinyl-source-stream'),
     buffer         = require('vinyl-buffer'),
+    uglify         = require('gulp-uglify'),
     sourcemaps     = require('gulp-sourcemaps'),
     gutil          = require('gutil');
 
@@ -30,6 +31,7 @@ gulp.task('scripts', ['scripts:jshint', 'scripts:clean'], function() {
     .pipe(source('bundle.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init())
+    .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.public.scripts));
 });

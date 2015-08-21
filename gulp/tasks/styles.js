@@ -9,6 +9,7 @@ gulp.task('styles:clean', function() {
 
 gulp.task('styles', ['styles:clean'], function() {
   var sass       = require('gulp-sass'),
+    minifyCSS  = require('gulp-minify-css'),
     prefix     = require('gulp-autoprefixer'),
     path       = require('path'),
     gutil      = require('gutil'),
@@ -18,6 +19,7 @@ gulp.task('styles', ['styles:clean'], function() {
     .pipe(sourcemaps.init())
     .pipe(sass({includePaths: ['./' + paths.assets.root  + ' css']}))
     .on('error', gutil.log)
+    .pipe(minifyCSS())
     .pipe(prefix('last 1 version'))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.public.root));

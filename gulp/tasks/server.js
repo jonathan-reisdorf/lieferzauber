@@ -21,7 +21,7 @@ gulp.task('server', function() {
     port : 1347,
     root : paths.public.root,
     middleware : function() {
-      return [proxyLieferheld, proxyGmaps];
+      return [proxyLieferheld, proxyGmaps, require('connect-gzip').gzip()];
     }
   });
 });
