@@ -1,23 +1,27 @@
 <div class="area-center">
-    <ul class="settings__tabs" ng-if="main.addresses.items.length" ng-include="'/views/partials/address_list.html'"></ul>
+    <div ng-if="!main.order.finished">
+        <ul class="settings__tabs" ng-if="main.addresses.items.length" ng-include="'/views/partials/address_list.html'"></ul>
 
-    <form name="address_edit" class="form__container" ng-submit="main.addresses.save()" ng-if="main.addresses.editing" ng-include="'/views/partials/address_form.html'"></form>
+        <form name="address_edit" class="form__container" ng-submit="main.addresses.save()" ng-if="main.addresses.editing" ng-include="'/views/partials/address_form.html'"></form>
 
-    <div ng-if="!main.addresses.editing">
-        <div class="message" ng-if="!main.addresses.items.length">
-            {{ 'INTRO.WELCOME_1' | translate }}<br />
-            {{ 'INTRO.WELCOME_2' | translate }}<br /><br />
-            <button class="form__button" ng-bind="'INTRO.CONTINUE' | translate" ng-click="main.addresses.edit()"></button>
-        </div>
+        <div ng-if="!main.addresses.editing">
+            <div class="message" ng-if="!main.addresses.items.length">
+                {{ 'INTRO.WELCOME_1' | translate }}<br />
+                {{ 'INTRO.WELCOME_2' | translate }}<br /><br />
+                <button class="form__button" ng-bind="'INTRO.CONTINUE' | translate" ng-click="main.addresses.edit()"></button>
+            </div>
 
-        <div class="area__tiles" ng-if="main.categories.items.length" ng-include="'/views/partials/categories.html'"></div>
-        <div class="area__people" ng-if="main.categories.items.length" ng-include="'/views/partials/people.html'"></div>
+            <div class="area__tiles" ng-if="main.categories.items.length" ng-include="'/views/partials/categories.html'"></div>
+            <div class="area__people" ng-if="main.categories.items.length" ng-include="'/views/partials/people.html'"></div>
 
-        <div class="area__selection">
-            <div ng-if="main.restaurants.active" ng-include="'/views/partials/selection.html'"></div>
-            <div ng-if="main.categories.items.length && main.restaurants.active === false" class="ui__notification ui__notification--error" ng-bind="'ERROR.NO_RESTAURANT_FOUND' | translate"></div>
+            <div class="area__selection">
+                <div ng-if="main.restaurants.active" ng-include="'/views/partials/selection.html'"></div>
+                <div ng-if="main.categories.items.length && main.restaurants.active === false" class="ui__notification ui__notification--error" ng-bind="'ERROR.NO_RESTAURANT_FOUND' | translate"></div>
+            </div>
         </div>
     </div>
+
+    <div ng-if="main.order.finished" class="message" ng-bind="'OUTRO.ORDER_FINISHED' | translate"></div>
 
     <div class="ui__notifications">
         <div class="ui__notification ui__notification--global" ng-repeat="notification in main.ui.notifications.items" ng-class="'ui__notification--' + notification.type + (notification.hidden ? ' ui__notification--hidden' : '')" ng-bind="notification.message"></div>

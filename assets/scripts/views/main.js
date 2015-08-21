@@ -16,6 +16,7 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
 
   self.order = {
     active : false,
+    finished : false,
     start : function() {
       this.userData = CommonStorage.get('userData');
 
@@ -36,9 +37,15 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
 
       order.user_id = this.userData.user.id;
       order.restaurant_id = self.restaurants.active.id;
+      order.sms_confirmation = true;
 
       angular.extend(order.delivery_address.address, self.addresses.active);
       delete order.delivery_address.address.id;
+
+      order.user_location = {
+        latitude : order.delivery_address.address.latitude,
+        longitude : order.delivery_address.address.longitude
+      };
 
       order.sections = [{
         items : self.restaurants.getCleanedMealData()
@@ -48,8 +55,6 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
       StorageOrders.update(order, this.finish.bind(this));
     },
     finish : function(order) {
-      console.log('finishing order', order);
-
       var processingErrors = Object.keys(order.validity).filter(function(validityProp) {
         return !order.validity[validityProp];
       });
@@ -59,6 +64,26 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
           CommonUi.notifications.throwError('MESSAGE.INVALID_' + processingError.toUpperCase());
         });
       }
+
+      // @todo: should I update order_price_details?
+
+      order.operation = 'final';
+      StorageOrders.update(order, this.exit.bind(this));
+    },
+    exit : function(order) {
+      this.finished = true;
+
+      var addedUserData = {
+        name : order.delivery_address.address.name,
+        lastname : order.delivery_address.address.lastname,
+        phone : order.delivery_address.address.phone,
+        email : order.delivery_address.address.email
+      };
+
+      StorageUsers.update(userId, addedUserData);
+
+      angular.extend(this.userData.user.general, addedUserData);
+      CommonStorage.set('userData', this.userData);
     }
   };
 
@@ -275,13 +300,9 @@ module.exports = ['$routeParams', 'CommonUi', 'CommonRequest', 'CommonStorage', 
         }
 
         angular.extend(newAddress, {
-          user_location : {
-            latitude : geoData.location.lat,
-            longitude : geoData.location.lng
-          }
+          latitude : geoData.location.lat,
+          longitude : geoData.location.lng
         });
-
-        // @todo: take more data from google
 
         if (!newAddress.id) {
           angular.extend(newAddress, { id : new Date().getTime() });

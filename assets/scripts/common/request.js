@@ -23,6 +23,10 @@ module.exports = ['$resource', '$http', 'CommonConfig', function($resource, $htt
       register : {
         method : 'POST',
         url : 'users'
+      },
+      update : {
+        method : 'PUT',
+        url : 'users/:userId'
       }
     }),
     orders : generateResource('users/:userId/orders', 'lieferheld', {
