@@ -17,20 +17,21 @@ module.exports = ['CommonRequest', 'StorageService',  function(CommonRequest, St
 
   self.filterRelevant = function(restaurants) {
     return restaurants.filter(function(restaurant) {
-      if (!restaurant.general || !restaurant.general.main_category || !restaurant.rating || !restaurant.payment_methods) {
+      if (!restaurant.general || !restaurant.rating || !restaurant.payment_methods) {
         return false;
       }
 
       return restaurant.general.open && restaurant.general.delivery_home && restaurant.general.reachable && restaurant.general.online &&
-        restaurant.rating.average >= 3.75 && restaurant.payment_methods.filter(function(paymentMethod) {
+        restaurant.rating.average >= 3.75 && restaurant.min_order_value && restaurant.payment_methods.filter(function(paymentMethod) {
           return paymentMethod.name === 'cash';
         }).length;
     });
   };
 
-  self.selectRandomByCategory = function(restaurants, category, excludeRestaurantId) {
+  self.selectRandom = function(restaurants, excludedRestaurantIds, config, numberOfPeople) {
+    var maxAmount = config.minPerPerson * config.maxPerPersonFactor * numberOfPeople;
     var restaurantsSelection = angular.copy(restaurants.filter(function(restaurant) {
-      return restaurant.general.main_category === category && (!excludeRestaurantId || restaurant.id !== excludeRestaurantId);
+      return excludedRestaurantIds.indexOf(restaurant.id) === -1 && restaurant.min_order_value <= maxAmount;
     }));
 
     return restaurantsSelection[Math.round(Math.random() * (restaurantsSelection.length - 1))];

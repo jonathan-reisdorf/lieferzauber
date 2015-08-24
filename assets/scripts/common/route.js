@@ -6,10 +6,6 @@ module.exports = ['$routeProvider', function($routeProvider) {
       templateUrl : 'views/main.html',
       controller : 'ViewMainCtrl as main'
     })
-    .when('/:category', {
-      templateUrl : 'views/main.html',
-      controller : 'ViewMainCtrl as main'
-    })
     .otherwise({
       redirectTo : '/'
     });

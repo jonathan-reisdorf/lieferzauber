@@ -1,3 +1,3 @@
 # lunshuffle
 
-Features to be added soon: remove restaurants whose MOV is too high for number of persons, allow selection of multiple categories at once, make ingredients & categories excludable, add settings panel where you can adjust the level of randomness
+Features to be added soon: make ingredients & categories excludable, add settings panel where you can adjust the level of randomness, hardcore mode to hide all details

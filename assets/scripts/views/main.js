@@ -10,7 +10,11 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
         this.val = 1;
       }
 
-      self.restaurants.regenerateMenu();
+      if (self.restaurants.active) {
+        self.restaurants.regenerateMenu();
+      } else {
+        self.restaurants.select();
+      }
     }
   };
 
@@ -95,38 +99,20 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
     }
   };
 
-  self.categories = {
-    items : [],
-    select : function(category) {
-      this.active = category || this.active || this.items[Math.round(Math.random() * (this.items.length - 1))];
-      self.restaurants.select();
-    }
-  };
-
   self.restaurants = {
     items : [],
+    excluded : [],
     storage : StorageRestaurants,
     load : function(address) {
       CommonUi.busy = true;
       this.items = [];
       this.active = null;
-      self.categories.active = null;
-      self.categories.items = [];
       self.order.active = false;
 
       this.storage.get(address.city.toLowerCase(), address.zipcode, function(response) {
         if (response.data) {
-          self.restaurants.items = StorageRestaurants.filterRelevant(response.data);
-          self.restaurants.items.map(function(restaurant) {
-            return restaurant.general.main_category;
-          }).forEach(function(category) {
-            if (self.categories.items.indexOf(category) === -1) {
-              self.categories.items.push(category);
-            }
-          });
-
-          self.categories.select();
-          self.restaurants.selectRandom();
+          self.restaurants.items = self.restaurants.storage.filterRelevant(response.data);
+          self.restaurants.select();
         }
 
         CommonUi.busy = false;
@@ -135,8 +121,12 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
     select : function(restaurant, excludeRestaurantId) {
       self.order.active = false;
 
+      if (excludeRestaurantId) {
+        this.excluded.push(excludeRestaurantId);
+      }
+
       if (!restaurant) {
-        restaurant = this.selectRandom(excludeRestaurantId);
+        restaurant = this.selectRandom();
       }
       if (!restaurant) { return (this.active = false); }
 
@@ -151,6 +141,23 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
       fancyFlavorChance : 1 / 4,
       subItemsPerPerson : 0.5,
       preferedMealSizeFactor : 0.5
+    },
+    addMealItem : function(mealItems, newMealItem) {
+      var isUnique = true;
+
+      mealItems.forEach(function(mealItem) {
+        if (angular.equals(mealItem, newMealItem)) {
+          mealItem.priceToBuy += newMealItem.priceToBuy;
+          mealItem.quantity += newMealItem.quantity;
+          isUnique = false;
+        }
+      });
+
+      if (isUnique) {
+        mealItems.push(newMealItem);
+      }
+
+      return mealItems;
     },
     regenerateMenu : function() {
       this.generateMenu(this.active, this.active.minOrderValue, this.active.deliveryFees);
@@ -167,12 +174,12 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
         sideDish = null;
 
         if ((mainDish = this.generateMainDish(menu))) {
-          mealItems.push(mainDish);
+          this.addMealItem(mealItems, mainDish);
         }
 
         if ((mainDish ? mainDish.priceToBuy : 0) < this.mealConfig.minPerPerson || i % 2 === 0) {
           if ((sideDish = this.generateSideDish(menu))) {
-            mealItems.push(sideDish);
+            this.addMealItem(mealItems, sideDish);
           }
         }
       }
@@ -202,7 +209,7 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
       while (totalSum < this.active.minOrderValue) {
         if ((sideDish = this.generateSideDish(this.active.menu, false)) || (sideDish = this.generateSideDish(this.active.menu, true))) {
           totalSum += sideDish.priceToBuy;
-          mealItems.push(sideDish);
+          this.addMealItem(mealItems, sideDish);
         }
       }
 
@@ -255,8 +262,8 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
         CommonUi.notifications.throwError();
       }
     },
-    selectRandom : function(excludeRestaurantId) {
-      return StorageRestaurants.selectRandomByCategory(this.items, self.categories.active, excludeRestaurantId);
+    selectRandom : function() {
+      return StorageRestaurants.selectRandom(this.items, this.excluded, this.mealConfig, self.hungryPeople.val);
     },
     getCleanedMealData : function() {
       var data = angular.copy(this.activeMenu.items),
