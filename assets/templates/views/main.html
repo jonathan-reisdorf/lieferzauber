@@ -11,11 +11,13 @@
                 <button class="form__button" ng-bind="'INTRO.CONTINUE' | translate" ng-click="main.addresses.edit()"></button>
             </div>
 
-            <div class="area__people" ng-include="'/views/partials/people.html'"></div>
+            <div ng-if="main.addresses.active">
+                <div class="area__people" ng-include="'/views/partials/people.html'"></div>
 
-            <div class="area__selection">
-                <div ng-if="main.restaurants.active" ng-include="'/views/partials/selection.html'"></div>
-                <div ng-if="main.restaurants.active === false" class="ui__notification ui__notification--error" ng-bind="'ERROR.NO_RESTAURANT_FOUND' | translate"></div>
+                <div class="area__selection">
+                    <div ng-if="main.restaurants.active" ng-include="'/views/partials/selection.html'"></div>
+                    <div ng-if="main.restaurants.active === false" class="ui__notification ui__notification--error" ng-bind="'ERROR.NO_RESTAURANT_FOUND' | translate"></div>
+                </div>
             </div>
         </div>
     </div>
