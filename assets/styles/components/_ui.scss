@@ -27,10 +27,11 @@
         position:absolute;
         left:50%;
         top:50%;
-        transform:translate(-50%);
         z-index:0;
         color:$_cSpecial;
         font-size:$_sBig;
+        margin-left:-($_sBig / 2);
+        margin-top:-($_sBig / 2);
         animation:animation-rotate $_tSlow linear infinite;
       }
     }
