@@ -55,6 +55,7 @@
             <span ng-bind="('ORDER.CONFIRM' | translate).replace('%%', main.restaurants.activeMenu.price.toFixed(2))"></span>
         </div>
     </div>
+    <div class="form__row area__selection--terms" ng-bind-html="('ORDER.TERMS' | translate) | raw"></div>
     <div class="grid__row form__row">
         <div class="grid__column grid__small--6">
             <button class="form__button form__button--cancel form__button--filling" ng-click="main.order.active = false">

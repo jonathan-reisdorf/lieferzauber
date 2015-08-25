@@ -40,5 +40,26 @@
       margin-top:($_sBig / 2);
       line-height:1.65em;
     }
+
+    &--terms {
+      font-size:$_fsDefault - 1px;
+
+      a {
+        color:$_cDark;
+        text-decoration:underline;
+        cursor:pointer;
+      }
+    }
+  }
+
+  &__imprint {
+    padding:$_sBig 0;
+    line-height:1.65em;
+
+    a {
+      color:$_cDark;
+      text-decoration:underline;
+      cursor:pointer;
+    }
   }
 }

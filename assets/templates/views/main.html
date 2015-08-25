@@ -1,5 +1,5 @@
 <div class="area-center">
-    <div ng-if="!main.order.finished">
+    <div ng-if="!main.order.finished && !main.showImprint">
         <ul class="settings__tabs" ng-if="main.addresses.items.length" ng-include="'/views/partials/address_list.html'"></ul>
 
         <form name="address_edit" class="form__container" ng-submit="main.addresses.save()" ng-if="main.addresses.editing" ng-include="'/views/partials/address_form.html'"></form>
@@ -20,7 +20,9 @@
         </div>
     </div>
 
-    <div ng-if="main.order.finished" class="message" ng-bind="'OUTRO.ORDER_FINISHED' | translate"></div>
+    <div ng-if="main.order.finished && !main.showImprint" class="message" ng-bind="'OUTRO.ORDER_FINISHED' | translate"></div>
+
+    <div ng-if="main.showImprint" ng-include="'/views/partials/imprint.html'"></div>
 
     <div class="ui__notifications">
         <div class="ui__notification ui__notification--global" ng-repeat="notification in main.ui.notifications.items" ng-class="'ui__notification--' + notification.type + (notification.hidden ? ' ui__notification--hidden' : '')" ng-bind="notification.message"></div>
@@ -28,6 +30,7 @@
     <div class="ui__layer" ng-if="main.ui.locked || main.ui.busy"></div>
     <div class="ui__layer ui__layer--curtain" ng-if="main.ui.hidden"></div>
     <div class="ui__language" ng-bind="'GLOBAL.SWITCH_LANGUAGE' | translate" ng-click="main.locale.change()"></div>
+    <div class="ui__imprint" ng-bind="('GLOBAL.IMPRINT.' + (main.showImprint ? 'HIDE' : 'SHOW')) | translate" ng-click="main.showImprint = !main.showImprint;"></div>
 
     <div style="height:40px"></div>
 </div>

@@ -45,5 +45,8 @@ module.exports = {
   'ORDER.CONFIRM' : 'Disclaimer: Bist du dir wirklich sicher, dass du ohne Kenntnis über den Inhalt deiner Bestellung den Betrag in Höhe von %% € ausgeben möchtest? Theoretisch ist alles möglich. Du könntest zum Beispiel anstelle eines Mittagessens einfach drei Getränke bekommen. Oder einen Burger mit Nutella. Es ist nicht wahrscheinlich, aber auch nicht ausgeschlossen! Auch solltest du sichergehen, dass du oder deine Freunde keine Allergien gegen bestimmte Inhaltsstoffe haben. In jedem Fall geschieht die Bestellung auf eigenes Risiko. Du erhälst allerdings eine E-Mail, die eine Liste der bestellten Artikel enthält. Wenn du es nicht aushälst, kannst du dir diese natürlich ansehen und dem Lieferservice evtl. noch kurzfristig Änderungswünsche mitteilen.',
   'ORDER.CANCEL' : 'Nein, ich bin mir nicht sicher...',
   'ORDER.BUY' : 'Ja, ich bin mir sicher! (Jetzt kostenpflichtig bestellen)',
-  'GLOBAL.SWITCH_LANGUAGE' : 'Switch to English'
+  'ORDER.TERMS' : 'Auch wenn Lieferzauber.de ein privater, unkommerzieller Dienst ist, vermittelt er Leistungen der <a href="https://www.lieferheld.de/" target="_blank">Lieferheld GmbH</a>, daher stimmst du mit dieser Bestellung den <a href="https://www.lieferheld.de/agb/" target="_blank">AGB, Widerrufsrecht</a> sowie den <a href="https://www.lieferheld.de/datenschutz/" target="_blank">Datenschutzbestimmungen</a> der Lieferheld GmbH zu.',
+  'GLOBAL.SWITCH_LANGUAGE' : 'Switch to English',
+  'GLOBAL.IMPRINT.SHOW' : 'Impressum anzeigen',
+  'GLOBAL.IMPRINT.HIDE' : 'Impressum schließen'
 };

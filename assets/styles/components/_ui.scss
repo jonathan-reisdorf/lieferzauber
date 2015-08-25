@@ -57,9 +57,9 @@
     }
   }
 
-  &__language {
+  &__language,
+  &__imprint {
     position:fixed;
-    right:0;
     bottom:0;
     padding:$_sNormal;
     cursor:pointer;
@@ -67,5 +67,14 @@
     text-decoration:underline;
     background:transparentize($_cWhite, 0.2);
     font-size:$_fsDefault - 1px;
+    z-index:10000;
+  }
+
+  &__language {
+    right:0;
+  }
+
+  &__imprint {
+    left:0;
   }
 }

@@ -2,6 +2,8 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
   'use strict';
   var self = this;
 
+  self.showImprint = false;
+
   self.hungryPeople = {
     val : 1,
     changed : function() {
