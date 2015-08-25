@@ -1,0 +1,9 @@
+@keyframes animation-rotate {
+  from { transform:rotate(0deg); transform-origin:center center; }
+  to { transform:rotate(360deg); transform-origin:center center; }
+}
+
+@keyframes animation-fade-in {
+  from { opacity:0; }
+  to { opacity:1; }
+}

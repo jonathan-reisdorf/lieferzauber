@@ -8,12 +8,31 @@
     width:100%;
     height:100%;
     background-color:transparentize($_cWhite, 0.5);
+    animation:animation-fade-in $_tFast;
     z-index:9998;
 
     &--curtain {
       z-index:9999;
       background-color:$_cWhite;
       cursor:wait;
+    }
+
+    &--busy {
+      cursor:wait;
+
+      &:after {
+        @extend .fa;
+
+        content:'\f0f5';
+        position:absolute;
+        left:50%;
+        top:50%;
+        transform:translate(-50%);
+        z-index:0;
+        color:$_cSpecial;
+        font-size:$_sBig;
+        animation:animation-rotate $_tSlow linear infinite;
+      }
     }
   }
 
