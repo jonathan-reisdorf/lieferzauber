@@ -3,7 +3,7 @@ module.exports = ['CommonRequest', 'StorageService',  function(CommonRequest, St
   var self = this,
     actions = StorageService.create();
 
-  self.get = function(city, zipcode, cb) {
+  self.get = function(city, zipcode, latitude, longitude, cb) {
     actions.apply(CommonRequest.restaurants.get, cb, {
       city : city,
       zipcode : zipcode,
@@ -11,7 +11,9 @@ module.exports = ['CommonRequest', 'StorageService',  function(CommonRequest, St
       sort_by : 'default',
       closest_per_chain : true,
       offset : 0,
-      limit : 0
+      limit : 0,
+      lat : latitude,
+      lon : longitude
     }, {});
   };
 
@@ -37,9 +39,13 @@ module.exports = ['CommonRequest', 'StorageService',  function(CommonRequest, St
     return restaurantsSelection[Math.round(Math.random() * (restaurantsSelection.length - 1))];
   };
 
-  self.getDetails = function(restaurantId, cb) {
+  self.getDetails = function(city, zipcode, latitude, longitude, restaurantId, cb) {
     actions.apply(CommonRequest.restaurants.getDetails, cb, {
-      restaurantId : restaurantId
+      restaurantId : restaurantId,
+      city : city,
+      zipcode : zipcode,
+      lat : latitude,
+      lon : longitude
     }, {});
   };
 

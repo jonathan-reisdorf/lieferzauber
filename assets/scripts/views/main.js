@@ -111,7 +111,7 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
       this.active = null;
       self.order.active = false;
 
-      this.storage.get(address.city.toLowerCase(), address.zipcode, function(response) {
+      this.storage.get(address.city.toLowerCase(), address.zipcode, address.latitude, address.longitude, function(response) {
         if (response.data) {
           self.restaurants.items = self.restaurants.storage.filterRelevant(response.data);
           self.restaurants.select();
@@ -132,7 +132,8 @@ module.exports = ['$routeParams', '$translate', 'CommonUi', 'CommonRequest', 'Co
       }
       if (!restaurant) { return (this.active = false); }
 
-      StorageRestaurants.getDetails(restaurant.id, function(restaurantDetails) {
+      var address = self.addresses.active || {};
+      StorageRestaurants.getDetails(address.city.toLowerCase(), address.zipcode, address.latitude, address.longitude, restaurant.id, function(restaurantDetails) {
         self.restaurants.generateMenu(restaurantDetails, restaurant.min_order_value, restaurant.delivery_fees[0]);
       });
     },
