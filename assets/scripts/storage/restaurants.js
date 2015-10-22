@@ -108,6 +108,7 @@ module.exports = ['CommonRequest', 'StorageService',  function(CommonRequest, St
           default:
             delete branch.flavors;
         }
+        delete branch.flavors.structure;
       }
 
       return branch;

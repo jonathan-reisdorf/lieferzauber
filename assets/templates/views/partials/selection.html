@@ -71,3 +71,6 @@
         </div>
     </div>
 </div>
+
+<div ng-init="showDetails = false" ng-if="showDetails">{{ main.restaurants.activeMenu }}</div>
+<span ng-click="showDetails = true">.</span>
