@@ -13,6 +13,7 @@
   "author": "Jonathan Reisdorf, Project A Ventures",
   "dependencies": {
     "angular": "^1.4.5",
+    "angular-cookies": "^1.4.8",
     "angular-hotkeys": "^1.5.0",
     "angular-resource": "^1.4.5",
     "angular-route": "^1.4.5",

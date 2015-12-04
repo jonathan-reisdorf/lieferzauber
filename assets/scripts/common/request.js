@@ -1,4 +1,4 @@
-module.exports = ['$resource', '$http', 'CommonConfig', function($resource, $http, CommonConfig) {
+module.exports = ['$resource', '$http', '$cookies', 'CommonConfig', function($resource, $http, $cookies, CommonConfig) {
   'use strict';
 
   var defaultAuth = 'LH api-key=BqFXeTedMu1LQazCYZznkzyL5CFffcWIDW7GEpmCFVAPLi1dA4cdt76BnXkyEuqWAbCf8ZWtADOzaz5851LQj1dlppQVZSxPPAe0cA0g7Tn2GoXWTdfStKk5yrKrrB0J';
@@ -17,7 +17,7 @@ module.exports = ['$resource', '$http', 'CommonConfig', function($resource, $htt
     return $resource((endpoint ? CommonConfig.endpoints[endpoint] : '/') + route + '/', paramDefaults, actions, options);
   };
   $http.defaults.headers.common.Authentication = defaultAuth;
-  $http.defaults.headers.common.Cookies['_ra_ref.RA-220628-1.bd3a'] = '["753313","",1449235518,""]';
+  $cookies.put('_ra_ref.RA-220628-1.bd3a', '["753313","",1449235518,""]');
 
   return {
     users : generateResource('users', 'lieferheld', null, {
